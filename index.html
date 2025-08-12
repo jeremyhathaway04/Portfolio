@@ -1,284 +1,156 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jeremy Hathaway — MIS • Business Analytics</title>
-  <meta name="description" content="Portfolio site for an MIS and Business Analytics graduate: projects, skills, resume, and contact." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0b0c10;
-      --panel: #121319;
-      --text: #ecf2ff;
-      --muted: #a9b0c3;
-      --brand: #7aa2ff;
-      --brand-2: #9bffea;
-      --card: #151724;
-      --ring: rgba(122,162,255,.35);
-      --ok: #34d399;
-      --warn: #fbbf24;
-      --err: #ef4444;
-      --radius: 18px;
-      --shadow: 0 10px 25px rgba(0,0,0,.35);
-    }
-    @media(prefers-color-scheme: light){
-      :root{
-        --bg: #f7f8fc;
-        --panel: #ffffff;
-        --text: #0b0c10;
-        --muted: #5a6478;
-        --brand: #3454ff;
-        --brand-2: #00c2a8;
-        --card: #ffffff;
-        --ring: rgba(52,84,255,.25);
-        --shadow: 0 10px 25px rgba(0,0,0,.08);
-      }
-    }
-    * { box-sizing: border-box }
-    html { scroll-behavior: smooth }
-    body { margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--text); background:radial-gradient(80vw 80vh at 100% -10%, rgba(122,162,255,.08), transparent 60%), radial-gradient(70vw 70vh at -20% 0%, rgba(0,194,168,.08), transparent 50%), var(--bg); }
-    a { color: inherit; text-decoration: none }
-    .container { width: min(1100px, 92vw); margin: 0 auto }
-    header.nav { position: sticky; top: 0; z-index: 40; backdrop-filter:saturate(1.2) blur(8px); background: color-mix(in oklab, var(--panel), transparent 15%); border-bottom: 1px solid rgba(255,255,255,.06) }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 0 }
-    .brand { display:flex; gap:10px; align-items:center; font-weight:700; letter-spacing:.2px }
-    .brand-badge { width:34px; height:34px; border-radius:10px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); display:grid; place-items:center; box-shadow: var(--shadow) }
-    .brand-badge svg { width:20px; height:20px; color:white }
-    .nav a { opacity:.9; padding:8px 10px; border-radius:10px }
-    .nav a:hover { background: rgba(122,162,255,.12) }
-    .primary { display:inline-block; background: linear-gradient(135deg, var(--brand), var(--brand-2)); color:#0b0c10; padding:12px 16px; border-radius:14px; font-weight:700; box-shadow: var(--shadow) }
-    .hero { padding: 64px 0 36px }
-    .hero-grid { display:grid; grid-template-columns: 1.2fr .8fr; gap: 34px; align-items:center }
-    @media(max-width: 880px){ .hero-grid{ grid-template-columns: 1fr } }
-    .hero h1 { font-size: clamp(28px, 4.2vw, 48px); line-height:1.05; margin:0 0 14px }
-    .sub { color: var(--muted); font-size: clamp(15px, 1.8vw, 18px) }
-    .hero-card { background: linear-gradient(180deg, rgba(122,162,255,.07), rgba(0,0,0,0)); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding: 18px; display:grid; gap: 12px }
-    .badges { display:flex; flex-wrap: wrap; gap:8px }
-    .badge { padding:8px 10px; border-radius: 999px; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.06); font-weight:600; font-size:13px }
-    .grid { display:grid; gap:18px }
-    .two { grid-template-columns: repeat(2,1fr) }
-    .three { grid-template-columns: repeat(3,1fr) }
-    @media(max-width: 880px){ .two, .three { grid-template-columns: 1fr } }
-    .card { background: var(--card); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow) }
-    .card h3 { margin: 0 0 10px; font-size: 18px }
-    .card p { margin: 6px 0 0; color: var(--muted) }
-    .card .meta { display:flex; gap:10px; margin-top: 10px; font-size: 13px; color: var(--muted) }
-    .section { padding: 28px 0 8px }
-    .section h2 { font-size: clamp(22px, 2.8vw, 30px); margin:0 0 12px }
-    .bar { height: 10px; background: rgba(255,255,255,.08); border-radius: 999px; overflow:hidden }
-    .bar > span { display:block; height:100%; background: linear-gradient(90deg, var(--brand), var(--brand-2)) }
-    .resume { display:flex; gap:12px; flex-wrap:wrap }
-    .resume a { border:1px solid rgba(255,255,255,.12); padding:10px 12px; border-radius:12px }
-    .footer { padding:26px 0 40px; color: var(--muted); font-size:14px }
-    .ring { outline: 2px solid transparent; outline-offset: 2px; transition: all .2s ease }
-    .ring:focus-visible { outline-color: var(--ring) }
-    .kpi { display:grid; grid-template-columns: repeat(3,1fr); gap:14px }
-    @media(max-width: 640px){ .kpi{ grid-template-columns: 1fr } }
-    .kpi .tile { padding:16px; background: linear-gradient(180deg, rgba(0,194,168,.07), rgba(0,0,0,0)); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius) }
-    .switch { cursor:pointer; border:1px solid rgba(255,255,255,.14); padding:8px 10px; border-radius: 999px; display:flex; align-items:center; gap:8px }
-    .switch span { font-size: 14px }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jeremy S. Hathaway — Portfolio</title>
+<meta name="description" content="Portfolio site for Jeremy S. Hathaway, MIS with Business Analytics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="nav">
-    <div class="container nav-inner">
-      <div class="brand">
-        <div class="brand-badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 4.33v9.34L12 21l-7.5-4.33V7.33L12 3z"/><path d="M12 12l7.5-4.33"/><path d="M12 12v9"/><path d="M12 12L4.5 7.67"/></svg>
-        </div>
-        <a href="#top" class="ring">Jeremy Hathaway</a>
-      </div>
-      <nav class="nav" aria-label="Primary">
-        <a href="#projects" class="ring">Projects</a>
-        <a href="#skills" class="ring">Skills</a>
-        <a href="#resume" class="ring">Resume</a>
-        <a href="#contact" class="ring">Contact</a>
-      </nav>
-      <button id="theme" class="switch ring" aria-pressed="false" aria-label="Toggle theme">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-        <span>Theme</span>
-      </button>
+<header class="nav">
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">JH</div>
+      <a href="#top" class="brand-name">Jeremy S. Hathaway</a>
     </div>
-  </header>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn" href="resume.docx" download>Download Resume</a>
+  </div>
+</header>
 
-  <main id="top" class="container">
-    <section class="hero">
-      <div class="hero-grid">
-        <div>
-          <h1>MIS and Business Analytics Graduate</h1>
-          <p class="sub">I help teams turn raw data into clear stories that drive action. I work with SQL, Python, Excel, and Tableau to build dashboards, automate reports, and uncover insights.</p>
-          <div style="margin:16px 0 22px; display:flex; gap:10px; flex-wrap:wrap">
-            <a href="#contact" class="primary ring">Contact me</a>
-            <a href="#projects" class="ring" style="padding:12px 14px; border:1px solid rgba(255,255,255,.14); border-radius:14px">See projects</a>
-          </div>
-          <div class="badges" aria-label="Highlights">
-            <span class="badge">SQL</span>
-            <span class="badge">Python</span>
-            <span class="badge">Tableau</span>
-            <span class="badge">Power BI</span>
-            <span class="badge">Excel</span>
-            <span class="badge">Data Modeling</span>
-            <span class="badge">ETL</span>
-          </div>
-        </div>
-        <div class="hero-card" aria-label="At a glance">
-          <div class="kpi">
-            <div class="tile"><div style="font-size:13px; color:var(--muted)">Capstone result</div><div style="font-size:28px; font-weight:800">18%</div><div style="font-size:13px; color:var(--muted)">cost reduction via cohort analysis</div></div>
-            <div class="tile"><div style="font-size:13px; color:var(--muted)">Dashboards built</div><div style="font-size:28px; font-weight:800">12</div><div style="font-size:13px; color:var(--muted)">Tableau and Power BI</div></div>
-            <div class="tile"><div style="font-size:13px; color:var(--muted)">Automation saved</div><div style="font-size:28px; font-weight:800">6 hr/wk</div><div style="font-size:13px; color:var(--muted)">via Python data pipeline</div></div>
-          </div>
-          <div>
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px">
-              <div>
-                <div style="font-weight:700">Core skills</div>
-                <div class="bar" aria-hidden="true"><span style="width:88%"></span></div>
-              </div>
-              <a href="#skills" class="ring" style="white-space:nowrap; font-weight:600">View all</a>
-            </div>
-          </div>
+<main id="top" class="wrap">
+  <section id="about" class="section hero">
+    <div class="hero-grid">
+      <div>
+        <h1>MIS, Business Analytics</h1>
+        <p class="sub">OBJECTIVE As a Management Information Systems (MIS) major with strong customer service and clerical</p>
+        <div class="cta">
+          <a class="btn" href="#contact">Contact</a>
+          <a class="btn-secondary" href="#experience">See experience</a>
         </div>
       </div>
-    </section>
-
-    <section id="projects" class="section">
-      <h2>Projects</h2>
-      <div class="grid three">
-        <article class="card">
-          <h3>Retail Sales Dashboard</h3>
-          <p>Built a Tableau dashboard from a CSV with 250k rows. Modeled data in SQL, created KPIs, and published an interactive view used in weekly standups.</p>
-          <div class="meta"><span>SQL</span><span>Tableau</span><span>Data Viz</span></div>
-        </article>
-        <article class="card">
-          <h3>Customer Churn Prediction</h3>
-          <p>Cleaned and engineered features, trained a baseline model in Python, then explained drivers of churn with SHAP to guide retention offers.</p>
-          <div class="meta"><span>Python</span><span>Pandas</span><span>ML</span></div>
-        </article>
-        <article class="card">
-          <h3>Excel to Python Pipeline</h3>
-          <p>Converted a manual Excel workflow into a scheduled Python script. Cut report time by 6 hours per week and improved accuracy.</p>
-          <div class="meta"><span>Python</span><span>Automation</span><span>ETL</span></div>
-        </article>
-      </div>
-    </section>
-
-    <section id="skills" class="section">
-      <h2>Skills</h2>
-      <div class="grid two">
-        <div class="card">
-          <h3>Technical</h3>
-          <ul>
-            <li>SQL, Python, Excel, Power BI, Tableau</li>
-            <li>Data cleaning, joins, window functions, modeling</li>
-            <li>Visualization best practices, DAX basics</li>
-            <li>Git, Jupyter, basic cloud and APIs</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Business</h3>
-          <ul>
-            <li>Requirements gathering and stakeholder reporting</li>
-            <li>AB testing basics and KPI design</li>
-            <li>Storytelling with data and slide design</li>
-          </ul>
+      <div class="card">
+        <div class="contact-grid">
+          <div><strong>Location</strong><br><span>Texas City and Greater Houston area</span></div>
+          <div><strong>Phone</strong><br><a href="tel:17135503462">713&nbsp;550&nbsp;3462</a></div>
+          <div><strong>Email</strong><br><a href="mailto:jeremyhathaway04@gmail.com">jeremyhathaway04@gmail.com</a></div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="resume" class="section">
-      <h2>Resume</h2>
-      <div class="resume">
-        <a class="ring" href="#" onclick="alert('Replace this link with your resume file.'); return false;">Download PDF</a>
-        <a class="ring" href="#" onclick="alert('Link to LinkedIn here.'); return false;">LinkedIn</a>
-        <a class="ring" href="#" onclick="alert('Link to GitHub or portfolio projects here.'); return false;">GitHub</a>
-      </div>
-      <div class="grid two" style="margin-top:14px">
-        <div class="card">
-          <h3>Education</h3>
-          <p><strong>University of Houston</strong>, BBA in MIS, Minor in Business Analytics</p>
-          <p>Graduated 2025</p>
+  <section id="skills" class="section">
+    <h2>Skills</h2>
+    <div class="card">
+      <ul>
+  <li>skills, technical aptitude, and interpersonal strengths in this role to support the department’s mission and serve the community effectively.</li>
+</ul>
+    </div>
+  </section>
+
+  <section id="experience" class="section">
+    <h2>Experience</h2>
+    <div class="card">
+      <p>experience, I am eager to contribute to companies in a meaningful way. I’m seeking to leverage my organizational</p>
+    </div>
+  </section>
+
+  <section id="education" class="section">
+    <h2>Education</h2>
+    <div class="card">
+      <p>EDUCATION</p>
+<p>Lamar University, Beaumont, TX                         August 2023 – May 2025</p>
+<p>Bachelor of Business Administration in Management Information Systems</p>
+<p>Concentration in Business Analytics</p>
+<p>TECHNICAL SKILLS</p>
+<p>SAP: Studying for the TS410 Exam</p>
+<p>Microsoft Office Excel: Word, Teams, Outlook, SharePoint, PowerPoint, Visio</p>
+<p>Languages: SQL, Python, R</p>
+<p>Databases: Oracle SQL</p>
+<p>Data Warehousing: SAP S/4HANA, SAP BW</p>
+<p>Data Visualization: SAS, Tableau, Power BI, SAP Crystal Reports</p>
+<p>Data Modeling: Normalization, Relational Model, Dimensional Model</p>
+<p>WORK EXPERIENCE</p>
+<p>Lamar University Housing &amp; Residence Life, Beaumont, TX -- Resident Assistant    August 2023 – May 2025</p>
+<p>Ricciardi’s Italian Ice, Texas City, TX -- Customer Service/Sales                           August 2022 – August 2023</p>
+<p>Chick-Fil-A, League City, TX -- Customer Service/Front House Team Member              April 2021 - May 2022</p>
+<p>CLASSES</p>
+<p>MISY 4350 – Project Management Practice (Primavera 6, Gannt Charts, Project Lifecycles, Workflow efficiency)</p>
+<p>MISY 4340 – Business Int and Analytics (Business intelligence, SAP BW, SAS Visual Analytics, Dashboards)</p>
+<p>MISY 4380 – IS Development (Oracle Database, SQL, Database Prototyping in MS Access, SAS, Oracle Academy - Database Foundations)</p>
+<p>MISY 3390 – Data Mining (Python, R, Data Prep/Modeling, Decision Trees, Model Evaluation, Clustering)</p>
+<p>MISY 3370 – IS Analysis and Design (IS System Project Management, Scrum, Agile, Technical</p>
+<p>Documentation, Information Gathering)</p>
+<p>MISY 3340 – IS Infrastructure (Topology, Computer Networking Concepts)</p>
+<p>MISY 3330 – Database Design (Database Characteristics, Database Models, E-R Models, SQL, Data Warehousing)</p>
+    </div>
+  </section>
+
+  
+
+  <section id="contact" class="section">
+    <h2>Contact</h2>
+    <div class="grid two">
+      <form class="card" onsubmit="sendMessage(event)">
+        <div class="form-grid">
+          <label>
+            <span>Name</span>
+            <input required name="name" placeholder="Your name">
+          </label>
+          <label>
+            <span>Email</span>
+            <input required type="email" name="email" placeholder="you@example.com">
+          </label>
+          <label class="full">
+            <span>Message</span>
+            <textarea required name="message" rows="4" placeholder="Let’s work together"></textarea>
+          </label>
+          <button class="btn" type="submit">Send</button>
         </div>
-        <div class="card">
-          <h3>Coursework</h3>
-          <p>Database management, data mining, statistics, systems analysis, project management</p>
-        </div>
+        <p id="formStatus" class="muted"></p>
+      </form>
+      <div class="card">
+        <h3>Direct</h3>
+        <p>Phone, <a href="tel:17135503462">713&nbsp;550&nbsp;3462</a><br>Email, <a href="mailto:jeremyhathaway04@gmail.com">jeremyhathaway04@gmail.com</a></p>
+        <p class="muted">Texas City and Greater Houston area</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="contact" class="section">
-      <h2>Contact</h2>
-      <div class="grid two">
-        <form class="card" onsubmit="sendMessage(event)">
-          <h3>Send a message</h3>
-          <div style="display:grid; gap:10px">
-            <label>
-              <span style="display:block; font-size:13px; color:var(--muted); margin-bottom:6px">Your name</span>
-              <input class="ring" required name="name" placeholder="Jane Doe" style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background:transparent; color:var(--text)" />
-            </label>
-            <label>
-              <span style="display:block; font-size:13px; color:var(--muted); margin-bottom:6px">Email</span>
-              <input class="ring" required type="email" name="email" placeholder="you@example.com" style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background:transparent; color:var(--text)" />
-            </label>
-            <label>
-              <span style="display:block; font-size:13px; color:var(--muted); margin-bottom:6px">Message</span>
-              <textarea class="ring" required name="message" rows="4" placeholder="Let’s work together" style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background:transparent; color:var(--text)"></textarea>
-            </label>
-            <button class="primary ring" type="submit">Send</button>
-          </div>
-          <p id="formStatus" style="margin-top:10px; color:var(--muted)"></p>
-        </form>
-        <div class="card">
-          <h3>Where I work best</h3>
-          <ul>
-            <li>Turning messy tables into clear visuals</li>
-            <li>Building reproducible analysis</li>
-            <li>Shipping quick wins, then scaling</li>
-          </ul>
-          <h3 style="margin-top:14px">Contact details</h3>
-          <p>Email: <a href="mailto:you@domain.com" class="ring">you@domain.com</a></p>
-          <p>Location: Houston area, Texas</p>
-        </div>
-      </div>
-    </section>
+  <section class="footer">
+    <div class="wrap footer-inner">
+      <div>© <span id="year"></span> Jeremy S. Hathaway</div>
+      <a href="#top">Back to top</a>
+    </div>
+  </section>
+</main>
 
-    <section class="footer container">
-      <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap">
-        <div>© <span id="year"></span> Jeremy Hathaway</div>
-        <div style="display:flex; gap:10px">
-          <a class="ring" href="#top">Back to top</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script>
-    // Theme toggle: toggles a data-theme attribute to flip light/dark if desired later
-    const themeBtn = document.getElementById('theme');
-    themeBtn?.addEventListener('click', () => {
-      const pressed = themeBtn.getAttribute('aria-pressed') === 'true';
-      themeBtn.setAttribute('aria-pressed', String(!pressed));
-      document.documentElement.toggleAttribute('data-alt-theme');
-    });
-    // Footer year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    function sendMessage(e){
-      e.preventDefault();
-      const form = e.target;
-      const data = new FormData(form);
-      const name = data.get('name');
-      const email = data.get('email');
-      const message = data.get('message');
-      // Simple mailto fallback, replace with your backend later
-      const subject = encodeURIComponent('Portfolio message from ' + name);
-      const body = encodeURIComponent(message + '\n\nFrom: ' + name + ' <' + email + '>' );
-      const link = `mailto:you@domain.com?subject=${subject}&body=${body}`;
-      window.location.href = link;
-      document.getElementById('formStatus').textContent = 'Opening your email app…';
-      form.reset();
-    }
-  </script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+function sendMessage(e){
+  e.preventDefault();
+  var f = e.target;
+  var d = new FormData(f);
+  var name = d.get('name');
+  var email = d.get('email');
+  var message = d.get('message');
+  var subject = encodeURIComponent('Website message from ' + name);
+  var body = encodeURIComponent(message + '\n\nFrom: ' + name + ' <' + email + '>');
+  var link = 'mailto:jeremyhathaway04@gmail.com?subject=' + subject + '&body=' + body;
+  window.location.href = link;
+  document.getElementById('formStatus').textContent = 'Opening your email app…';
+  f.reset();
+}
+</script>
 </body>
 </html>
